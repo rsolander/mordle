@@ -1,0 +1,31 @@
+.letter {
+    border: 1px solid;
+    margin: 4px;
+    padding: 2px;
+    width: 20px;
+    height: 20px;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    border-radius: 3px;
+    font-weight: bold;
+    font-size: 0.75rem;
+    font-family: 'Clear Sans', 'Helvetica Neue', Arial, sans-serif;
+    text-transform: uppercase;
+
+    &-absent {
+        // 2
+        opacity: 0.20;
+    }
+
+    &-present {
+        // 3
+        background-color: #B49F3A;
+    }
+
+    &-matched {
+        // 4
+        background-color: #538D4E;
+    }
+}

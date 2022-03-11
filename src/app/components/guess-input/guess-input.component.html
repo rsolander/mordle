@@ -1,0 +1,54 @@
+<div *ngIf="apiObsv | async">
+    <div class="header">
+        <header class="header-title">mordle</header>
+        <span class="header-subtext">more wordle</span>
+    </div>
+    <button type="button" (click)="newGame()">New game</button>
+    <div class="board">
+        <form #form="ngForm" (ngSubmit)="onSubmit(form)" autocomplete="off" *ngIf="guessArr.length != guessesAllowed">
+            <input
+                class="input"
+                name="guess"
+                ngModel
+                placeholder="guess the word!"
+                />
+            <button>></button>
+        </form>
+        <div *ngIf="guessArr.length == guessesAllowed">
+            Game over
+        </div>
+        <div class="status">
+            {{status}}
+        </div>
+    </div>
+    <div class="board">
+        <app-entry
+            *ngFor="let guess of guessArr"
+            [guess]="guess"
+            [ans]="ans"
+        ></app-entry>
+        <app-entry
+            *ngFor="let i of [].constructor(guessesAllowed - guessArr.length)"
+            [guess]="'     '"
+            [ans]="ans"
+        ></app-entry>
+    </div>
+    <div class="letterStates">
+        <app-letter-state
+            *ngFor="let ltrInfo of letterStates | slice:0:10"
+            [letterInfo]="ltrInfo"
+        ></app-letter-state>
+    </div>
+    <div class="letterStates">
+        <app-letter-state
+            *ngFor="let ltrInfo of letterStates | slice:10:19"
+            [letterInfo]="ltrInfo"
+        ></app-letter-state>
+    </div>
+    <div class="letterStates">
+        <app-letter-state
+            *ngFor="let ltrInfo of letterStates | slice:19:26"
+            [letterInfo]="ltrInfo"
+        ></app-letter-state>
+    </div>
+</div>
