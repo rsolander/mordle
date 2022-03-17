@@ -21,8 +21,7 @@ export class HttpService {
       params: {
         'random': 'true',
         'letters': '5',
-        'frequencyMin': '3.00',
-        'frequencyMax': '3.80',
+        'frequencyMin': '3.80',
         'hasDetails': 'definitions'
       },
       headers: {

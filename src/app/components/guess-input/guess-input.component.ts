@@ -20,6 +20,7 @@ export class GuessInputComponent implements OnInit, OnDestroy {
   letterMap: Map<string, number>;
   ansMap: Map<string, number>;
   letterStates: Array<CharInfo>;
+  errorState: boolean;
 
   constructor(
     private httpService: HttpService,
@@ -31,7 +32,7 @@ export class GuessInputComponent implements OnInit, OnDestroy {
 
   newGame() {
     this.guessesAllowed = 6;
-    this.status = 'You have yet to guess correctly.';
+    this.status = 'Guess the word.';
     this.letterMap = new Map<string, number>();
     this.ansMap = new Map<string, number>();
     this.letterStates = new Array();
@@ -53,6 +54,7 @@ export class GuessInputComponent implements OnInit, OnDestroy {
     }
     console.log(this.letterMap)
     this.guessArr = [];
+    this.errorState = false;
     this.apiObsv = this.httpService.getRandomWord();
     this.wordSub = this.apiObsv.subscribe((res: APIResponse) => {
       this.ans = res.word;
@@ -62,6 +64,9 @@ export class GuessInputComponent implements OnInit, OnDestroy {
         idx++;
       }
       console.log(this.ansMap)
+    }, err => {
+      this.errorState = true;
+      console.log(err);
     });
   }
 

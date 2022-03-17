@@ -3,22 +3,24 @@
         <header class="header-title">mordle</header>
         <span class="header-subtext">more wordle</span>
     </div>
-    <button type="button" (click)="newGame()">New game</button>
+    <div class="newGame">
+        <button class="newGameButton" type="button" (click)="newGame()">New game</button>
+    </div>
     <div class="board">
-        <form #form="ngForm" (ngSubmit)="onSubmit(form)" autocomplete="off" *ngIf="guessArr.length != guessesAllowed">
+        <div class="status">
+            {{status}}
+        </div>
+        <form #form="ngForm" (ngSubmit)="onSubmit(form)" autocomplete="off" *ngIf="guessArr.length != guessesAllowed && status != 'Wowza!'">
             <input
                 class="input"
                 name="guess"
                 ngModel
-                placeholder="guess the word!"
+                placeholder="guess here"
                 />
-            <button>></button>
+            <button class="body submit">></button>
         </form>
         <div *ngIf="guessArr.length == guessesAllowed">
-            Game over
-        </div>
-        <div class="status">
-            {{status}}
+            Game over. Answer: {{ans}}
         </div>
     </div>
     <div class="board">
@@ -29,7 +31,7 @@
         ></app-entry>
         <app-entry
             *ngFor="let i of [].constructor(guessesAllowed - guessArr.length)"
-            [guess]="'     '"
+            [guess]="'-----'"
             [ans]="ans"
         ></app-entry>
     </div>
@@ -51,4 +53,7 @@
             [letterInfo]="ltrInfo"
         ></app-letter-state>
     </div>
+</div>
+<div class="header" *ngIf="errorState">
+    Error using WordsAPI
 </div>
