@@ -19,7 +19,7 @@
                 />
             <button class="body submit">></button>
         </form>
-        <div *ngIf="guessArr.length == guessesAllowed">
+        <div *ngIf="guessArr.length == guessesAllowed && status != 'Wowza!'">
             Game over. Answer: {{ans}}
         </div>
     </div>
@@ -31,7 +31,7 @@
         ></app-entry>
         <app-entry
             *ngFor="let i of [].constructor(guessesAllowed - guessArr.length)"
-            [guess]="'-----'"
+            [guess]="emptyEntry"
             [ans]="ans"
         ></app-entry>
     </div>

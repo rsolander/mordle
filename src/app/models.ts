@@ -12,3 +12,9 @@ export interface APIResponse {
     id: number;
     word: string;
 }
+
+export interface GameSettings {
+    word_length: number;
+    difficulty: number;
+    guesses_allowed: number;
+}

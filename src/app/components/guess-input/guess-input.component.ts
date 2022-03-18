@@ -2,7 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Observable, Subscription } from 'rxjs';
 import { HttpService } from 'src/app/services/http.service';
-import { APIResponse, CharInfo } from 'src/app/models';
+import { APIResponse, CharInfo, GameSettings } from 'src/app/models';
 
 @Component({
   selector: 'app-guess-input',
@@ -21,6 +21,8 @@ export class GuessInputComponent implements OnInit, OnDestroy {
   ansMap: Map<string, number>;
   letterStates: Array<CharInfo>;
   errorState: boolean;
+  gameSettings: GameSettings;
+  emptyEntry: string;
 
   constructor(
     private httpService: HttpService,
@@ -31,7 +33,16 @@ export class GuessInputComponent implements OnInit, OnDestroy {
   }
 
   newGame() {
-    this.guessesAllowed = 6;
+    this.gameSettings = {
+      word_length: 5,
+      difficulty: 1,
+      guesses_allowed: 6,
+    }
+    this.emptyEntry = "-";
+    for (let i = 0; i < this.gameSettings.word_length - 1; i++) {
+      this.emptyEntry = this.emptyEntry + "-";
+    }
+    this.guessesAllowed = this.gameSettings.guesses_allowed;
     this.status = 'Guess the word.';
     this.letterMap = new Map<string, number>();
     this.ansMap = new Map<string, number>();
@@ -55,7 +66,7 @@ export class GuessInputComponent implements OnInit, OnDestroy {
     console.log(this.letterMap)
     this.guessArr = [];
     this.errorState = false;
-    this.apiObsv = this.httpService.getRandomWord();
+    this.apiObsv = this.httpService.getRandomWord(this.gameSettings.word_length);
     this.wordSub = this.apiObsv.subscribe((res: APIResponse) => {
       this.ans = res.word;
       let idx = 0;

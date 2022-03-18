@@ -10,7 +10,7 @@ export class HttpService {
 
   constructor(private http: HttpClient) { }
 
-  getRandomWord(): Observable<APIResponse> {
+  getRandomWord(wordLength: number): Observable<APIResponse> {
     //If you want to hard-code the word:
     //const word = new Observable((observer) => {
       //observer.next('jenna');
@@ -20,7 +20,7 @@ export class HttpService {
     return this.http.get<APIResponse>('https://wordsapiv1.p.rapidapi.com/words/', {
       params: {
         'random': 'true',
-        'letters': '5',
+        'letters': wordLength.toString(),
         'frequencyMin': '3.80',
         'hasDetails': 'definitions'
       },

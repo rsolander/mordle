@@ -1,9 +1,12 @@
-<div *ngIf="tile.display==1" class="square square-yellow">
+<div *ngIf="tile.letter == '-'" class="square square-empty">
     {{tile.letter}}
 </div>
-<div *ngIf="tile.display==2" class="square square-green">
+<div *ngIf="tile.display==1 && tile.letter != '-'" class="square square-yellow">
     {{tile.letter}}
 </div>
-<div *ngIf="tile.display==0" class="square">
+<div *ngIf="tile.display==2 && tile.letter != '-'" class="square square-green">
+    {{tile.letter}}
+</div>
+<div *ngIf="tile.display==0 && tile.letter != '-'" class="square">
     {{tile.letter}}
 </div>
