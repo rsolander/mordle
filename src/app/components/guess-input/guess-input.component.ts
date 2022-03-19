@@ -35,7 +35,7 @@ export class GuessInputComponent implements OnInit, OnDestroy {
   newGame() {
     this.gameSettings = {
       word_length: 5,
-      difficulty: 1,
+      weird_mode: true,
       guesses_allowed: 6,
     }
     this.emptyEntry = "-";
@@ -66,7 +66,7 @@ export class GuessInputComponent implements OnInit, OnDestroy {
     console.log(this.letterMap)
     this.guessArr = [];
     this.errorState = false;
-    this.apiObsv = this.httpService.getRandomWord(this.gameSettings.word_length);
+    this.apiObsv = this.httpService.getRandomWord(this.gameSettings.word_length, this.gameSettings.weird_mode);
     this.wordSub = this.apiObsv.subscribe((res: APIResponse) => {
       this.ans = res.word;
       let idx = 0;

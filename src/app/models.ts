@@ -15,6 +15,6 @@ export interface APIResponse {
 
 export interface GameSettings {
     word_length: number;
-    difficulty: number;
+    weird_mode: boolean;
     guesses_allowed: number;
 }
