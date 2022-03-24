@@ -1,15 +1,16 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Observable, Subscription } from 'rxjs';
 import { HttpService } from 'src/app/services/http.service';
 import { APIResponse, CharInfo, GameSettings } from 'src/app/models';
+import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-guess-input',
   templateUrl: './guess-input.component.html',
   styleUrls: ['./guess-input.component.scss']
 })
-export class GuessInputComponent implements OnInit, OnDestroy {
+export class GuessInputComponent implements OnInit {
   ans: string;
   guessesAllowed: number;
   status: string;
@@ -24,20 +25,28 @@ export class GuessInputComponent implements OnInit, OnDestroy {
   gameSettings: GameSettings;
   emptyEntry: string;
 
+  @ViewChild('mymodal') mymodal: any;
+
   constructor(
     private httpService: HttpService,
+    private modalService: NgbModal,
   ) { }
 
   ngOnInit(): void {
-    this.newGame();
-  }
-
-  newGame() {
+    //this.openModal();
+    this.apiObsv = new Observable<APIResponse>();
     this.gameSettings = {
-      word_length: 5,
+      word_length: 8,
       weird_mode: true,
       guesses_allowed: 6,
     }
+  }
+
+  ngAfterViewInit() {
+    this.openModal();
+  }
+
+  newGame() {
     this.emptyEntry = "-";
     for (let i = 0; i < this.gameSettings.word_length - 1; i++) {
       this.emptyEntry = this.emptyEntry + "-";
@@ -131,10 +140,15 @@ export class GuessInputComponent implements OnInit, OnDestroy {
     console.log()
   }
 
-  ngOnDestroy(): void {
-    if (this.wordSub) {
-      this.wordSub.unsubscribe();
-    }
+  openModal() {
+    this.modalService.open(this.mymodal, {
+      ariaLabelledBy: 'game-settings-modal',
+      backdrop: 'static',
+      keyboard: false,
+      modalDialogClass: 'modalContainer'
+    }).result.then((result) => {
+      this.newGame();
+      console.log(result);
+    });
   }
-
 }

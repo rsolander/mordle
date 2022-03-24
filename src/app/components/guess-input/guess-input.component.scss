@@ -65,6 +65,24 @@
   border-color: #eee;
 }
 
+.modalContainer {
+  background: darkslategray;
+  border-radius: 12px;
+}
+
+.modalTitle {
+  justify-content: center;
+    text-align: center;
+    border-bottom: 1px solid;
+    margin: 16px;
+    font-size: 2em;
+}
+
+.modalTitle {
+    margin: 16px;
+    font-size: 1em;
+}
+
 .shakin {
     animation: kf_shake 0.4s 1 linear;
   }

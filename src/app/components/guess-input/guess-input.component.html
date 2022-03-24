@@ -1,4 +1,4 @@
-<div *ngIf="apiObsv | async">
+<div *ngIf="(apiObsv | async)">
     <div class="header">
         <header class="header-title">mordle</header>
         <span class="header-subtext">more wordle</span>
@@ -57,3 +57,17 @@
 <div class="header" *ngIf="errorState">
     Error using WordsAPI
 </div>
+<button (click)="openModal()">game settings</button>
+<ng-template #mymodal let-modal>
+    <div class="modalTitle">
+        <div>game settings</div>
+      </div>
+      <div class="modalBody">
+        Word length
+        Weird mode
+        Guesses Allowed
+      </div>
+      <div>
+        <button type="button" class="btn btn-light" (click)="modal.close('lorem ipsum')">Play</button>
+      </div>
+</ng-template>
