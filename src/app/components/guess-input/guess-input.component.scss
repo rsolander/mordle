@@ -2,21 +2,56 @@
     font-family: 'Clear Sans', 'Helvetica Neue', Arial, sans-serif;
     text-align: center;
     align-content: center;
+    padding: 8px;
 }
 
 .header {
     font-family: 'Clear Sans', 'Helvetica Neue', Arial, sans-serif;
-    justify-content: center;
-    text-align: center;
-    border-bottom: 1px solid;
-    padding: 8px;
-    margin: 16px;
+    //flex-direction: row;
+    //align-items: center;
+    display: block;
+    justify-content: space-between;
+    flex-wrap: nowrap;
   &-title {
+    display: inline-block;
     font-size: 2em;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
   }
-  &-subtext {
+  &-settings {
+    display: inline-block;
+    align-items: left;
+    //justify-content: flex-start;
+  }
+}
+
+.testTitle {
+  display: inline-block;
+    font-size: 2em;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+     left: 50%;
+     transform: translateX(-50%);
+}
+
+.testSettings {
+  display: inline-block;
+  align-items: left;
+    //justify-content: flex-start;
+}
+
+.subtext {
+  padding-bottom: 4px;
+    margin-bottom: 12px;
+  display: block;
     font-size: 1em;
-  }
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+    border-bottom: 1px solid;
 }
 
 .input {
@@ -24,9 +59,9 @@
   font-size: 1em;
   border-radius: 4px;
   border: 2px solid;
-  background: #222;
-  color: #eee;
-  border-color: #eee;
+  background: transparent;
+  border-color: var(--global-border-color);
+  color: var(--global-color);
 }
 
 .submit {
@@ -34,13 +69,13 @@
   font-size: 1em;
   border-radius: 4px;
   border: 2px solid;
-  background: #222;
-  color: #eee;
-  border-color: #eee;
+  background: var(--global-background);
+  color: var(--global-color);
+  border-color: var(--global-border-color);
 }
 
 .status {
-  padding: 8px;
+  padding: 4px;
 }
 
 .letterStates {
@@ -60,14 +95,14 @@
   font-family: 'Clear Sans', 'Helvetica Neue', Arial, sans-serif;
   border: 2px solid;
   border-radius: 4px;
-  background: #222;
-  color: #eee;
-  border-color: #eee;
+  background: var(--global-background);
+  color: var(--global-color);
+  border-color: var(--global-border-color);
 }
 
 .modalContainer {
-  background: darkslategray;
-  border-radius: 12px;
+  background: #a3a9ac;
+  border-color: white;
 }
 
 .modalTitle {
@@ -78,9 +113,20 @@
     font-size: 2em;
 }
 
-.modalTitle {
-    margin: 16px;
-    font-size: 1em;
+.modalBody {
+  margin: 16px;
+  font-size: 1em;
+}
+
+.settingsButton {
+  background: transparent;
+  color: #eee;
+  border-color: transparent;
+}
+
+.settingsIcon {
+  stroke: white;
+  color: black;
 }
 
 .shakin {

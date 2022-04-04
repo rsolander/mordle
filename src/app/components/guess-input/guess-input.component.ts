@@ -24,6 +24,7 @@ export class GuessInputComponent implements OnInit {
   errorState: boolean;
   gameSettings: GameSettings;
   emptyEntry: string;
+  gameReady: boolean;
 
   @ViewChild('mymodal') mymodal: any;
 
@@ -35,6 +36,7 @@ export class GuessInputComponent implements OnInit {
   ngOnInit(): void {
     //this.openModal();
     this.apiObsv = new Observable<APIResponse>();
+    this.gameReady = false;
     this.gameSettings = {
       word_length: 8,
       weird_mode: true,
@@ -43,10 +45,13 @@ export class GuessInputComponent implements OnInit {
   }
 
   ngAfterViewInit() {
+    this.wordSub = new Subscription();
     this.openModal();
   }
 
   newGame() {
+    //this.apiObsv = new Observable<APIResponse>();
+    console.log("Game settings: ", this.gameSettings);
     this.emptyEntry = "-";
     for (let i = 0; i < this.gameSettings.word_length - 1; i++) {
       this.emptyEntry = this.emptyEntry + "-";
@@ -78,6 +83,7 @@ export class GuessInputComponent implements OnInit {
     this.apiObsv = this.httpService.getRandomWord(this.gameSettings.word_length, this.gameSettings.weird_mode);
     this.wordSub = this.apiObsv.subscribe((res: APIResponse) => {
       this.ans = res.word;
+      this.gameReady = true;
       let idx = 0;
       for (let chr of this.ans) {
         this.ansMap.set(chr, idx);
@@ -98,6 +104,11 @@ export class GuessInputComponent implements OnInit {
     }
     this.submitGuess(form.value.guess);
     form.reset();
+  }
+
+  onSubmitSettings(form: NgForm) {
+    console.log(this.gameSettings.word_length);
+    //this.modalService.dismissAll();
   }
 
   submitGuess(guess: string) {
@@ -141,14 +152,16 @@ export class GuessInputComponent implements OnInit {
   }
 
   openModal() {
+    this.wordSub.unsubscribe();
+    this.gameReady = false;
     this.modalService.open(this.mymodal, {
       ariaLabelledBy: 'game-settings-modal',
-      backdrop: 'static',
+      backdrop: false,
       keyboard: false,
-      modalDialogClass: 'modalContainer'
+      modalDialogClass: 'modalContainer',
     }).result.then((result) => {
       this.newGame();
-      console.log(result);
+      console.log("Modal result: " + result);
     });
   }
 }

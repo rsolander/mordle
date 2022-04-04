@@ -4,6 +4,9 @@ body {
     color: #222;
     background: #fff;
     border-color: #222;
+    --global-color: #222;
+    --global-background: #fff;
+    --global-border-color: #222;
   }
   
   @media (prefers-color-scheme: dark) {
@@ -11,5 +14,8 @@ body {
       color: #eee;
       background: #121212;
       border-color: #eee;
+      --global-color: #eee;
+      --global-background: #121212;
+      --global-border-color: #eee;
     }
 }

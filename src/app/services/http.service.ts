@@ -20,7 +20,7 @@ export class HttpService {
       params = params.set('frequencyMax', '3.60');
     }
     else {
-      params = params.set('frequencyMax', '3.80');
+      params = params.set('frequencyMin', '3.80');
     }
     console.log(params);
     //If you want to hard-code the word:
