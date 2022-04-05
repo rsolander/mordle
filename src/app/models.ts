@@ -11,6 +11,7 @@ export interface EntryInfo {
 export interface APIResponse {
     id: number;
     word: string;
+    results: Array<any>;
 }
 
 export interface GameSettings {

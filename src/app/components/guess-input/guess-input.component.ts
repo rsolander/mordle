@@ -12,6 +12,7 @@ import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 })
 export class GuessInputComponent implements OnInit {
   ans: string;
+  ans_def: string;
   guessesAllowed: number;
   status: string;
   wordSub: Subscription;
@@ -38,8 +39,8 @@ export class GuessInputComponent implements OnInit {
     this.apiObsv = new Observable<APIResponse>();
     this.gameReady = false;
     this.gameSettings = {
-      word_length: 8,
-      weird_mode: true,
+      word_length: 5,
+      weird_mode: false,
       guesses_allowed: 6,
     }
   }
@@ -83,13 +84,14 @@ export class GuessInputComponent implements OnInit {
     this.apiObsv = this.httpService.getRandomWord(this.gameSettings.word_length, this.gameSettings.weird_mode);
     this.wordSub = this.apiObsv.subscribe((res: APIResponse) => {
       this.ans = res.word;
+      this.ans_def = res.results[0].definition;
+      console.log(this.ans, this.ans_def);
       this.gameReady = true;
       let idx = 0;
       for (let chr of this.ans) {
         this.ansMap.set(chr, idx);
         idx++;
       }
-      console.log(this.ansMap)
     }, err => {
       this.errorState = true;
       console.log(err);
