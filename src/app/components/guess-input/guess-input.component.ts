@@ -35,7 +35,6 @@ export class GuessInputComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    //this.openModal();
     this.apiObsv = new Observable<APIResponse>();
     this.gameReady = false;
     this.gameSettings = {
@@ -51,8 +50,6 @@ export class GuessInputComponent implements OnInit {
   }
 
   newGame() {
-    //this.apiObsv = new Observable<APIResponse>();
-    console.log("Game settings: ", this.gameSettings);
     this.emptyEntry = "-";
     for (let i = 0; i < this.gameSettings.word_length - 1; i++) {
       this.emptyEntry = this.emptyEntry + "-";
@@ -78,14 +75,12 @@ export class GuessInputComponent implements OnInit {
       this.letterStates.push(cur);
       idx++;
     }
-    console.log(this.letterMap)
     this.guessArr = [];
     this.errorState = false;
     this.apiObsv = this.httpService.getRandomWord(this.gameSettings.word_length, this.gameSettings.weird_mode);
     this.wordSub = this.apiObsv.subscribe((res: APIResponse) => {
       this.ans = res.word;
       this.ans_def = res.results[0].definition;
-      console.log(this.ans, this.ans_def);
       this.gameReady = true;
       let idx = 0;
       for (let chr of this.ans) {
@@ -106,11 +101,6 @@ export class GuessInputComponent implements OnInit {
     }
     this.submitGuess(form.value.guess);
     form.reset();
-  }
-
-  onSubmitSettings(form: NgForm) {
-    console.log(this.gameSettings.word_length);
-    //this.modalService.dismissAll();
   }
 
   submitGuess(guess: string) {
@@ -134,7 +124,6 @@ export class GuessInputComponent implements OnInit {
   updateLetterStates(guess: string) {
     let guessIdx = 0;
     for (let ltr of guess) {
-      console.log(ltr)
       // idx here distinguishes the letter
       let idx = this.letterMap.get(ltr);
       if (idx == undefined || this.letterStates[idx].display == 4) {
@@ -150,7 +139,6 @@ export class GuessInputComponent implements OnInit {
       }
       guessIdx++;
     }
-    console.log()
   }
 
   openModal() {
@@ -163,7 +151,6 @@ export class GuessInputComponent implements OnInit {
       modalDialogClass: 'modalContainer',
     }).result.then((result) => {
       this.newGame();
-      console.log("Modal result: " + result);
     });
   }
 }

@@ -30,7 +30,6 @@ export class EntryComponent implements OnInit {
         this.compMap.set(char, 1);
       }
     }
-    console.log(this.compMap)
   }
 
   compareGuessToAns(): void {
@@ -49,7 +48,6 @@ export class EntryComponent implements OnInit {
       }
       i++;
     }
-    console.log(this.squares);
     //Second one references map for leftovers
     let j = 0;
     for (let char of [...this.guess]) {
