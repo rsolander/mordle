@@ -50,6 +50,7 @@ export class GuessInputComponent implements OnInit {
   }
 
   newGame() {
+    this.gameReady = false;
     this.emptyEntry = "-";
     for (let i = 0; i < this.gameSettings.word_length - 1; i++) {
       this.emptyEntry = this.emptyEntry + "-";
@@ -79,6 +80,7 @@ export class GuessInputComponent implements OnInit {
     this.errorState = false;
     this.apiObsv = this.httpService.getRandomWord(this.gameSettings.word_length, this.gameSettings.weird_mode);
     this.wordSub = this.apiObsv.subscribe((res: APIResponse) => {
+      console.log("testing1234");
       this.ans = res.word;
       this.ans_def = res.results[0].definition;
       this.gameReady = true;

@@ -22,7 +22,6 @@ export class HttpService {
     else {
       params = params.set('frequencyMin', '3.80');
     }
-    console.log(params);
     //If you want to hard-code the word:
     //const word = new Observable((observer) => {
       //observer.next('jenna');

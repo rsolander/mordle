@@ -1,4 +1,4 @@
-<div *ngIf="(apiObsv | async) && gameReady">
+<div *ngIf="gameReady">
     <div class="header">
         <div class="testSettings">
             <button class="settingsButton" (click)="openModal()">
@@ -70,16 +70,18 @@
         <div>game settings</div>
       </div>
       <div class="modalBody">
-            <ngb-alert type="secondary" [dismissible]="false"><strong>mordle</strong> unlimited customizable wordle. Beware: proper nouns are fair game.</ngb-alert>
+            <ngb-alert type="secondary" [dismissible]="false"><strong>mordle</strong> unlimited customizable wordle. Beware - proper nouns are fair game.</ngb-alert>
             <label for="customRange3" class="form-label">Word length: {{gameSettings.word_length}}</label>
             <input [(ngModel)]="gameSettings.word_length" type="range" class="form-range" min="5" max="8" step="1" id="customRange3">
             <ngb-alert type="secondary" [dismissible]="false"><strong>word length</strong> how long the word will be.</ngb-alert>
             <label for="customRange2" class="form-label">Guesses allowed: {{gameSettings.guesses_allowed}}</label>
             <input [(ngModel)]="gameSettings.guesses_allowed" type="range" class="form-range" min="2" max="6" step="1" id="customRange2">
-            <ngb-alert type="secondary" [dismissible]="false"><strong>guesses allowed</strong> how many attemps at the word the player has.</ngb-alert>
-            <input class="form-check-input" [(ngModel)]="gameSettings.weird_mode" type="checkbox" role="switch" id="flexSwitchCheckChecked" checked>
-            <label class="form-check-label" for="flexSwitchCheckChecked">Weird mode</label>
-            <ngb-alert type="secondary" [dismissible]="false"><strong>weird mode</strong> for those who enjoy some funky words</ngb-alert>
+            <ngb-alert type="secondary" [dismissible]="false"><strong>guesses allowed</strong> how many attempts at the word the player has.</ngb-alert>
+            <div class="form-group form-check">
+                <input class="form-check-input" [(ngModel)]="gameSettings.weird_mode" type="checkbox" role="switch" id="weirdmode" checked>
+                <label class="form-check-label" for="weirdmode">Weird mode </label> 
+            </div>
+            <ngb-alert type="secondary" [dismissible]="false"><strong>weird mode</strong> for the little freaks who like harder words.</ngb-alert>
             <div class="modalBody">
                 <button type="button" class="btn btn-light" (click)="modal.close()">Play</button>
             </div>
