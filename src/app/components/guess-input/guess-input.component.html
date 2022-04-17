@@ -1,17 +1,17 @@
 <div *ngIf="gameReady">
     <div class="header">
-        <div class="testSettings">
+        <div class="newSettings">
             <button class="settingsButton" (click)="openModal()">
                 <svg class="settingsIcon" xmlns="http://www.w3.org/2000/svg" height="32w" viewBox="0 0 24 24" width="32">
                   <path fill="var(--color-tone-1)" d="M19.14,12.94c0.04-0.3,0.06-0.61,0.06-0.94c0-0.32-0.02-0.64-0.07-0.94l2.03-1.58c0.18-0.14,0.23-0.41,0.12-0.61 l-1.92-3.32c-0.12-0.22-0.37-0.29-0.59-0.22l-2.39,0.96c-0.5-0.38-1.03-0.7-1.62-0.94L14.4,2.81c-0.04-0.24-0.24-0.41-0.48-0.41 h-3.84c-0.24,0-0.43,0.17-0.47,0.41L9.25,5.35C8.66,5.59,8.12,5.92,7.63,6.29L5.24,5.33c-0.22-0.08-0.47,0-0.59,0.22L2.74,8.87 C2.62,9.08,2.66,9.34,2.86,9.48l2.03,1.58C4.84,11.36,4.8,11.69,4.8,12s0.02,0.64,0.07,0.94l-2.03,1.58 c-0.18,0.14-0.23,0.41-0.12,0.61l1.92,3.32c0.12,0.22,0.37,0.29,0.59,0.22l2.39-0.96c0.5,0.38,1.03,0.7,1.62,0.94l0.36,2.54 c0.05,0.24,0.24,0.41,0.48,0.41h3.84c0.24,0,0.44-0.17,0.47-0.41l0.36-2.54c0.59-0.24,1.13-0.56,1.62-0.94l2.39,0.96 c0.22,0.08,0.47,0,0.59-0.22l1.92-3.32c0.12-0.22,0.07-0.47-0.12-0.61L19.14,12.94z M12,15.6c-1.98,0-3.6-1.62-3.6-3.6 s1.62-3.6,3.6-3.6s3.6,1.62,3.6,3.6S13.98,15.6,12,15.6z"></path>
                 </svg>
           </button>
         </div>
-        <div class="testTitle">mordle</div>
+        <div class="newHeader">mordle</div>
     </div>
-    <div class="subtext">more wordle</div>
+    <div class="newSubtext">more wordle</div>
     <div class="newGame">
-        <button class="newGameButton" type="button" (click)="newGame()">New game</button>
+        <button class="btn btn-light" type="button" (click)="newGame()">New game</button>
     </div>
     <div class="board">
         <div class="status">
@@ -24,7 +24,9 @@
                 ngModel
                 placeholder="guess here"
                 />
-            <button class="body submit">></button>
+            <button class="submit">
+                >
+            </button>
         </form>
         <div *ngIf="guessArr.length == guessesAllowed || status == 'Wowza!'">
             answer: <b>{{ans}}</b> [{{ans_def}}]
@@ -70,18 +72,19 @@
         <div>game settings</div>
       </div>
       <div class="modalBody">
-            <ngb-alert type="secondary" [dismissible]="false"><strong>mordle</strong> unlimited customizable wordle. Beware - proper nouns are fair game.</ngb-alert>
-            <label for="customRange3" class="form-label">Word length: {{gameSettings.word_length}}</label>
-            <input [(ngModel)]="gameSettings.word_length" type="range" class="form-range" min="5" max="8" step="1" id="customRange3">
-            <ngb-alert type="secondary" [dismissible]="false"><strong>word length</strong> how long the word will be.</ngb-alert>
-            <label for="customRange2" class="form-label">Guesses allowed: {{gameSettings.guesses_allowed}}</label>
-            <input [(ngModel)]="gameSettings.guesses_allowed" type="range" class="form-range" min="2" max="6" step="1" id="customRange2">
-            <ngb-alert type="secondary" [dismissible]="false"><strong>guesses allowed</strong> how many attempts at the word the player has.</ngb-alert>
-            <div class="form-group form-check">
-                <input class="form-check-input" [(ngModel)]="gameSettings.weird_mode" type="checkbox" role="switch" id="weirdmode" checked>
-                <label class="form-check-label" for="weirdmode">Weird mode </label> 
-            </div>
-            <ngb-alert type="secondary" [dismissible]="false"><strong>weird mode</strong> for the little freaks who like harder words.</ngb-alert>
+            <ngb-alert type="dark" [dismissible]="false"><strong>mordle:</strong> unlimited customizable wordle. Proper nouns are fair game. Guesses don't need to be real words, and revealed hints don't need to be applied in subsequent guesses.</ngb-alert>
+            <ngb-alert type="dark" [dismissible]="false"><strong>word length: {{gameSettings.word_length}}</strong> how long the word will be.
+                <label for="customRange3" class="form-label"></label>
+                <input [(ngModel)]="gameSettings.word_length" type="range" class="form-range" min="5" max="8" step="1" id="customRange3">
+            </ngb-alert>
+            <ngb-alert type="dark" [dismissible]="false"><strong>guesses allowed: {{gameSettings.guesses_allowed}}</strong> how many attempts at the word the player has.
+                <label for="customRange2" class="form-label"></label>
+                <input [(ngModel)]="gameSettings.guesses_allowed" type="range" class="form-range" min="2" max="6" step="1" id="customRange2"> 
+            </ngb-alert>
+            <ngb-alert type="dark" [dismissible]="false">
+                <strong> weird mode 
+                    <input class="form-check-input" [(ngModel)]="gameSettings.weird_mode" type="checkbox" role="switch" id="weirdmode" checked>
+                </strong> for the little freaks who like harder words.</ngb-alert>
             <div class="modalBody">
                 <button type="button" class="btn btn-light" (click)="modal.close()">Play</button>
             </div>
