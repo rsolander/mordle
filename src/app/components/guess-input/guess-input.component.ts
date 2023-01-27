@@ -5,6 +5,17 @@ import { HttpService } from 'src/app/services/http.service';
 import { APIResponse, CharInfo, GameSettings } from 'src/app/models';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 
+const ALPHABET = new Array(
+  "q","w","e","r","t","y","u","i","o","p",
+  "a","s","d","f","g","h","j","k","l",
+  "z","x","c","v","b","n","m"
+);
+
+const DEFAULT_PROMPT = 'Guess the word.';
+const INVALID_GUESS_PROMPT = 'Not a valid guess.';
+const WRONG_GUESS_PROMPT = 'Not quite.';
+const CORRECT_GUESS_PROMPT = 'Wowza!';
+
 @Component({
   selector: 'app-guess-input',
   templateUrl: './guess-input.component.html',
@@ -56,15 +67,11 @@ export class GuessInputComponent implements OnInit {
       this.emptyEntry = this.emptyEntry + "-";
     }
     this.guessesAllowed = this.gameSettings.guesses_allowed;
-    this.status = 'Guess the word.';
+    this.status = DEFAULT_PROMPT;
     this.letterMap = new Map<string, number>();
     this.ansMap = new Map<string, number>();
     this.letterStates = new Array();
-    this.alphabet = new Array(
-      "q","w","e","r","t","y","u","i","o","p",
-      "a","s","d","f","g","h","j","k","l",
-      "z","x","c","v","b","n","m"
-    );
+    this.alphabet = ALPHABET;
     //For letter map, state 1=untouched, 2=guessed
     let idx = 0;
     for (let ltr of this.alphabet) {
@@ -80,7 +87,6 @@ export class GuessInputComponent implements OnInit {
     this.errorState = false;
     this.apiObsv = this.httpService.getRandomWord(this.gameSettings.word_length, this.gameSettings.weird_mode);
     this.wordSub = this.apiObsv.subscribe((res: APIResponse) => {
-      console.log("testing1234");
       this.ans = res.word;
       this.ans_def = res.results[0].definition;
       this.gameReady = true;
@@ -98,7 +104,7 @@ export class GuessInputComponent implements OnInit {
   onSubmit(form: NgForm) {
     // Only allow letters thru
     if (form.value.guess.match(/[^a-zA-Z]/g)) {
-      this.status = "Not a valid guess."
+      this.status = INVALID_GUESS_PROMPT;
       return;
     }
     this.submitGuess(form.value.guess);
@@ -110,14 +116,14 @@ export class GuessInputComponent implements OnInit {
     guess = guess.toLowerCase();
     //Check string lengths + check if right
     if (!guess || guess?.length != this.ans.length) {
-      this.status = "Not a valid guess."
+      this.status = INVALID_GUESS_PROMPT;
       return;
     }
     if (guess == this.ans) {
-      this.status = 'Wowza!';
+      this.status = CORRECT_GUESS_PROMPT;
     }
     else {
-      this.status = "Not quite."
+      this.status = WRONG_GUESS_PROMPT;
     }
     this.updateLetterStates(guess);
     this.guessArr.push(guess)
